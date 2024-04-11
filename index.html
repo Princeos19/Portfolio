@@ -314,7 +314,7 @@
                 <div class="card">
                     <a href="https://www.behance.net/gallery/188295965/Salon-Booking-App">
                         <div class="imgbx">
-                            <img src="assets/salonImage.jpg" alt="project image">
+                            <img src="assets/salonImage.jpg" alt="project image" preload>
                         </div>
                         <p>Salon App Case Study</p>
                     </a>
@@ -324,7 +324,7 @@
                 <div class="card">
                     <a href="https://www.behance.net/gallery/182868463/Mental-health-and-wellness-App-UIUX-Case-Study">
                         <div class="imgbx">
-                            <img src="assets/MindfitImage.jpg" alt="project image">
+                            <img src="assets/MindfitImage.jpg" alt="project image" preload>
                         </div>
                         <p>Mental Health and wellness app</p>
                     </a>
@@ -333,7 +333,7 @@
                 <a href="https://www.behance.net/gallery/188300041/School-Web-Design">
                     <div class="card">
                         <div class="imgbx">
-                            <img src="assets/SchoolImage.jpg" alt="project image">
+                            <img src="assets/SchoolImage.jpg" alt="project image" preload>
                         </div>
                         <p>Mental Health and wellness app</p>
                     </div>
@@ -619,6 +619,16 @@
             "nextButton": ".next",
             "autoplayButtonOutput": false,
         })
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var preloadImages = document.querySelectorAll("img[preload]");
+            preloadImages.forEach(function(img) {
+                var src = img.getAttribute("src");
+                var image = new Image();
+                image.src = src;
+            });
+        });
     </script>
 </body>
 
