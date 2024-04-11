@@ -12,7 +12,7 @@ body {
     /* position: relative; */
     background: var(--dark-1, #090C0E);
     color: #FFF;
-    border: 1px solid salmon;
+    /* border: 1px solid salmon; */
 }
 
 /* mobile view css */
@@ -110,6 +110,10 @@ body {
     display: flex;
     gap: 5px;
 }
+.navbar .socialsm {
+    display: none;
+    gap: 5px;
+}
 
 
 
@@ -120,7 +124,7 @@ body {
 
 main {
     /* Firefox */
-    height: 35rem;
+    
     
     display: flex;
     flex-direction: column;
@@ -129,7 +133,8 @@ main {
 }
 
 .circle {
-    right: 0;
+    
+    overflow-x: hidden;
     transform: translate(50%, 0%);
     top: 0;
     position: absolute;
@@ -173,7 +178,8 @@ main {
     padding: 20px;
 }
 
-.ctctfrm input[type=text] {
+.ctctfrm input[type="text"],
+.ctctfrm input[type="email"] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -184,13 +190,38 @@ main {
     border-radius: 8px;
     border: 0.5px solid var(--subtext22, #9AA0A6);
     background: var(--dark-2, #0E1215);
+    color: #FFF;
 }
 
 .ctctfrm textarea {
     width: 100%;
+    padding: 12px 20px;
     border-radius: 8px;
     border: 0.5px solid var(--subtext22, #9AA0A6);
     background: var(--dark-2, #0E1215);
+    color: #FFF;
+}
+.cta{
+    position: inherit;
+    z-index: 1;
+    margin: 2rem 0rem;
+    display: inline-flex;
+    padding: 8px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border: 0px;
+    border-radius: 8px;
+    background: var(--Butt, linear-gradient(90deg, #01A1D6 41.51%, #FFC1DF 115.95%));
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 1.25px;
 }
 
 footer {
@@ -266,17 +297,25 @@ footer .copyright .socials {
 
 
 @media screen and (min-width: 768px) {
-    .navbar .navLinks {
+    body{
+        padding-inline: 10%;
+    }
+    .navbar{
         display: flex;
+        justify-content: space-between;
+        align-items: center;
         position: relative;
+    }
+    .navbar .navLinks {
+        position: relative;
+        display: flex;
         height: auto;
         background-color: none;
         margin: 0;
         left: 0;
         gap: 2rem;
-        align-items: center;
-        width: 65%;
-        justify-content: space-between;
+        padding-left: 80px;
+        justify-content: space-evenly;
         background-color: transparent;
     }
 
@@ -285,24 +324,25 @@ footer .copyright .socials {
         flex-direction: row;
         gap: 20px;
     }
+    .navbar .socialsm{
+        display: flex;
+    }
+    .navbar .socials{
+        display: none;
+    }
 
     .burger {
         display: none !important;
     }
 
-    .cta {
-        padding: 5px 20px;
-        margin-left: 30px;
-        background-color: green !important;
-        border-radius: 5px;
-        color: white;
-
-    }
-
     .ctctfrm {
         width: 550px;
+        padding: 2rem 0rem;
     }
-
+    .circle{
+        right: 10%;
+    }
+    
     footer {
         padding: 0rem 8rem;
         padding-top: 8rem;

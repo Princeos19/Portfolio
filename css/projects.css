@@ -108,6 +108,10 @@ body {
     display: flex;
     gap: 5px;
 }
+.navbar .socialsm {
+    display: none;
+    gap: 5px;
+}
 
 
 
@@ -119,6 +123,7 @@ body {
 .projects .exploretxt {
     height: 100px;
     display: flex;
+    padding-top: 30px;
     align-items: center;
     justify-content: center;
 }
@@ -240,17 +245,25 @@ footer .copyright .socials {
 
 
 @media screen and (min-width: 768px) {
-    .navbar .navLinks {
+    body{
+        padding-inline: 10%;
+    }
+    .navbar{
         display: flex;
+        justify-content: space-between;
+        align-items: center;
         position: relative;
+    }
+    .navbar .navLinks {
+        position: relative;
+        display: flex;
         height: auto;
         background-color: none;
         margin: 0;
         left: 0;
         gap: 2rem;
-        align-items: center;
-        width: 65%;
-        justify-content: space-between;
+        padding-left: 80px;
+        justify-content: space-evenly;
         background-color: transparent;
     }
 
@@ -258,6 +271,12 @@ footer .copyright .socials {
     .navbar .navLinks {
         flex-direction: row;
         gap: 20px;
+    }
+    .navbar .socialsm{
+        display: flex;
+    }
+    .navbar .socials{
+        display: none;
     }
 
     .burger {
@@ -277,7 +296,7 @@ footer .copyright .socials {
         grid-template-columns: 1fr 1fr;
     }
     footer{
-        padding: 0rem 8rem;
+        /* padding: 0rem 8rem; */
         padding-top: 8rem;
     }
     

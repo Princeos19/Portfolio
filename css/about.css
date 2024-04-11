@@ -108,6 +108,11 @@ body {
     gap: 5px;
 }
 
+.navbar .socialsm {
+    display: none;
+    gap: 5px;
+}
+
 
 
 .navbar .navLinks.showNav {
@@ -176,6 +181,7 @@ body {
 
 .hero .btn {
     display: block;
+    
 }
 
 .hero .btn button {
@@ -189,10 +195,19 @@ body {
     color: #9AA0A6;
     border: 1px solid var(--Butt, #01A1D6);
     border-radius: 5px;
+    cursor: pointer;
 
 }
 
 /* Tools skill section */
+.toolstk,
+.hardskl,
+.compt,
+.education {
+    padding-inline: 1rem;
+    /* 193.75% */
+}
+
 .toolstk>h3,
 .hardskl>h3,
 .compt>h3,
@@ -219,9 +234,22 @@ body {
     line-height: normal;
     margin-block-end: 2rem;
 }
-.stk{
+
+.toolstk .circle {
+    display: none;
+    position: absolute;
+    width: 50%;
+    height: 40%;
+    border-radius: 559px;
+    background: linear-gradient(90deg, rgba(1, 161, 214, 0.20) 41.51%, rgba(255, 193, 223, 0.20) 115.95%);
+    filter: blur(210px);
+}
+
+
+.stk {
     display: flex;
-    gap: 10px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .toolstk .stk p {
@@ -237,9 +265,15 @@ body {
     line-height: normal;
     letter-spacing: 0.25px;
 }
+.compt .compskls .sklcrd>p,
+.hardskl .skls .sklcrd>p {
+    color: seashell;
+}
+
 
 .toolcrd {
-    padding-right: 20px;
+
+    padding: 2px;
     display: inline-flex;
     align-items: center;
     border-radius: 50px;
@@ -247,19 +281,26 @@ body {
 }
 
 .toolcrd img {
-    height: 20px;
-    width: 20px;
+    height: 2rem;
+    width: 2rem;
+}
+
+.toolcrd p {
+    padding: 5px;
+    padding-right: 10px;
 }
 
 .skls,
 .compskls {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .sklcrd {
     display: inline-flex;
     padding: 5px 10px;
+    margin: 5px 0px;
     width: fit-content;
     justify-content: center;
     align-items: center;
@@ -269,10 +310,20 @@ body {
     color: #9AA0A6;
 }
 
+.education .circle {
+    display: none;
+    position: absolute;
+    width: 50%;
+    height: 30%;
+    border-radius: 559px;
+    background: linear-gradient(90deg, rgba(1, 161, 214, 0.20) 41.51%, rgba(255, 193, 223, 0.20) 115.95%);
+    filter: blur(150px);
+}
+
 .cards {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
 
 .cards h6 {
@@ -394,17 +445,29 @@ footer .copyright .socials {
 
 
 @media screen and (min-width: 768px) {
-    .navbar .navLinks {
+
+    
+    body {
+        padding-inline: 10%;
+    }
+
+    .navbar {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
         position: relative;
+    }
+
+    .navbar .navLinks {
+        position: relative;
+        display: flex;
         height: auto;
         background-color: none;
         margin: 0;
         left: 0;
         gap: 2rem;
-        align-items: center;
-        width: 65%;
-        justify-content: space-between;
+        padding-left: 80px;
+        justify-content: space-evenly;
         background-color: transparent;
     }
 
@@ -427,29 +490,41 @@ footer .copyright .socials {
 
     }
 
+    .navbar .socialsm {
+        display: flex;
+    }
+
+    .navbar .socials {
+        display: none;
+    }
+
     section {
-        padding: 5rem 5rem;
+        padding: 2rem 2rem;
     }
 
-    .hero {
-        grid-template-columns: repeat(2, 1fr);
-        margin-block-start: 1rem;
+    
+
+    .toolstk,
+    .hardskl,
+    .compt,
+    .education {
+        padding-inline: inherit;
+        /* 193.75% */
     }
 
-    .hero .circle {
-        filter: blur(40.2156982421875px);
+    .toolstk .stk .circle {
+        left: 0;
+
+        display: block;
     }
 
-    .hero .imgbx {
-        grid-column-start: 2;
-    }
-
-    .hero .herotxt {
-        grid-row-start: 1;
+    .education .circle {
+        display: block;
+        right: 0;
     }
 
     footer {
-        padding: 0rem 8rem;
+        padding: initial;
         padding-top: 8rem;
     }
 
@@ -459,12 +534,41 @@ footer .copyright .socials {
         padding: 10px 10%;
     }
 
-    footer .copyright .line {
+    footer .copyright {
         display: block;
     }
 
+    footer .line {
+        display: block;
+        height: 1px;
+        background-color: #fff;
+        width: 100%;
+    }
+
     footer .copyright .socials {
+        padding: 0rem 8rem;
         padding-top: 10px;
         justify-content: end;
+    }
+}
+@media screen and (min-width: 1000px) {
+    .hero {
+        grid-template-columns: repeat(2, 1fr);
+        margin-block-start: 1rem;
+        padding: 5rem 0rem;
+    }
+    .hero .circle {
+        filter: blur(41px);
+    }
+
+    .hero .imgbx {
+        grid-column-start: 2;
+        width: 440px;
+    }
+
+
+    .hero .herotxt {
+        grid-row-start: 1;
+        grid-column-start: 1;
     }
 }
