@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@layer base {
+  body {
+    @apply bg-background text-on-background font-body antialiased;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .material-symbols-filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+}
+
+@layer utilities {
+  .text-outline {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 80px 10px rgba(0, 188, 212, 0.2);
+  }
+
+  .glow-hero {
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.12) 0%, transparent 70%);
+  }
+
+  .glow-mid-left {
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.08) 0%, transparent 70%);
+  }
+
+  .glow-mid-right {
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.1) 0%, transparent 70%);
+  }
+
+  .glow-sections {
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.15) 0%, transparent 70%);
+  }
+
+  .glow-experience {
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.12) 0%, transparent 70%);
+  }
+
+  .glow-radial {
+    background: radial-gradient(circle at center, rgba(0, 188, 212, 0.08) 0%, transparent 70%);
+  }
+
+  .bg-glow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .glass-nav {
+    background: rgba(30, 32, 36, 0.6);
+    backdrop-filter: blur(20px);
+  }
+
+  .glass-panel {
+    background-color: rgba(30, 32, 36, 0.6);
+    backdrop-filter: blur(20px);
+  }
+
+  .hero-gradient {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(0, 218, 243, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(0, 218, 243, 0.03) 0%, transparent 40%),
+      radial-gradient(circle at 50% -20%, rgba(0, 218, 243, 0.1) 0%, transparent 60%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #00daf3, #00bcd2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #00daf3, #00bcd2);
+  }
+
+  .input-glow {
+    @apply focus-within:shadow-[0_0_20px_-5px_rgba(0,218,243,0.15)];
+  }
+
+  .active-nav-glow {
+    box-shadow: 0 0 40px 0 rgba(0, 218, 243, 0.06);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #0c0e12;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #3c494c;
+    border-radius: 10px;
+  }
+}
