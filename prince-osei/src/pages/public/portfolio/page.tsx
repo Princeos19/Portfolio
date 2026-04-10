@@ -37,7 +37,7 @@ export default function PortfolioPage() {
           <Pagination currentPage={currentPage} totalPages={totalPages} />
         </section>
 
-        <section className="py-32" id="contact">
+        <section className="max-w-[1400px] mx-auto px-12 py-32" id="contact">
           <ContactCTA />
         </section>
       </main>

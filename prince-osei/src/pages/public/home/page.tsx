@@ -36,7 +36,7 @@ export default function HomePage() {
               <h1 className="font-headline text-5xl md:text-[80px] font-extrabold tracking-tight flex items-center flex-wrap gap-x-4 leading-none">
                 <span className="text-primary">Prince</span>
                 <span className="relative">
-                  <span className="text-outline">O</span>sei
+                 <span className="bg-[linear-gradient(90deg,#01A1D6_41.51%,#FFC1DF_115.95%)] bg-clip-text text-transparent">O</span>sei
                 </span>
               </h1>
               <h2 className="text-2xl font-bold mt-4">Product Designer</h2>
