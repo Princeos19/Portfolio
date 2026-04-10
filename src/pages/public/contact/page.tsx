@@ -58,7 +58,7 @@ export default function ContactPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
           <div className="absolute bottom-12 left-12 max-w-md">
             <p className="font-headline text-2xl font-bold text-on-surface">
-              Based in New York City
+              Based in Ghana
             </p>
             <p className="font-body text-on-surface-variant mt-2">
               Working with brands globally to deliver exceptional digital experiences.

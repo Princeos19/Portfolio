@@ -8,7 +8,7 @@ export function ContactInfo() {
             <span className="material-symbols-outlined text-xl">mail</span>
           </div>
           <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">
-            hello@luminary.com
+            princeosei991@gmail.com
           </span>
         </a>
         <a className="flex items-center gap-4 group" href="#">
@@ -16,7 +16,7 @@ export function ContactInfo() {
             <span className="material-symbols-outlined text-xl">call</span>
           </div>
           <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">
-            +1 (555) 000-1234
+            +233 (055) 164-3306
           </span>
         </a>
       </div>
