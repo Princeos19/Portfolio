@@ -9,8 +9,9 @@ export function Navigation() {
 
   return (
     <nav className="w-full px-12 py-8 flex justify-between items-center max-w-[1400px] mx-auto">
-      <Link to="/" className="w-8 h-8 flex items-center justify-center">
-        <span className="material-symbols-outlined text-on-background">pentagon</span>
+      <Link to="/" className="w-12 h-12 flex items-center justify-center">
+        {/* <span className="material-symbols-outlined text-on-background">pentagon</span> */}
+        <img src="/src/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
       </Link>
       <div className="hidden md:flex items-center gap-10 text-xs font-bold tracking-widest uppercase">
         <Link
