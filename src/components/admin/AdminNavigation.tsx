@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import type { LinkProps } from 'react-router-dom';
+import type { NavLinkRenderProps } from 'react-router-dom';
 import { MaterialIcon } from './MaterialIcon';
 import { APP_ROUTES } from '../../utils/constants';
 
@@ -19,7 +19,7 @@ export function AdminNavigation() {
           key={item.path}
           to={item.path}
           end={item.path === APP_ROUTES.ADMIN_DASHBOARD}
-          className={({ isActive }: Pick<LinkProps, 'to'> & { isActive: boolean }) =>
+          className={({ isActive }: NavLinkRenderProps) =>
             `flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-300 group relative font-body text-sm ${
               isActive
                 ? 'text-[#00daf3] font-bold after:content-[""] after:absolute after:left-0 after:w-1 after:h-6 after:bg-[#00daf3] after:rounded-r-full active-nav-glow'
