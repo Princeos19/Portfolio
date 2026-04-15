@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { hashToken } from '../../functions/_lib/auth';
+import { verifyPasswordInput } from '../../functions/_lib/env';
 
 describe('hashToken', () => {
   it('returns a deterministic lowercase SHA-256 hex digest', async () => {
@@ -20,5 +21,11 @@ describe('hashToken', () => {
     expect(hash).toBe('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
     expect(hash).toHaveLength(64);
     expect(hash).toMatch(/^[0-9a-f]{64}$/);
+  });
+});
+
+describe('verifyPasswordInput', () => {
+  it("throws when the password input is empty", () => {
+    expect(() => verifyPasswordInput('')).toThrowError('Password is required');
   });
 });

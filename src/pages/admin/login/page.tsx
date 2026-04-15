@@ -1,7 +1,45 @@
+import { useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+type LoginResponse = {
+  ok?: boolean;
+  error?: string;
+};
+
 export default function AdminLoginPage() {
-  const handleLogin = () => {
-    localStorage.setItem('admin_authenticated', 'true');
-    window.location.href = '/admin';
+  const navigate = useNavigate();
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError('');
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/admin/auth/login', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ password }),
+      });
+
+      const data = (await response.json()) as LoginResponse;
+
+      if (!response.ok) {
+        setError(data.error ?? 'Login failed');
+        return;
+      }
+
+      navigate('/admin', { replace: true });
+    } catch {
+      setError('Login failed');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -33,7 +71,7 @@ export default function AdminLoginPage() {
               </p>
             </div>
 
-            <div className="space-y-6">
+            <form className="space-y-6" onSubmit={handleLogin}>
               <div className="space-y-2">
                 <label
                   htmlFor="password"
@@ -46,6 +84,8 @@ export default function AdminLoginPage() {
                     id="password"
                     type="password"
                     placeholder="••••••••••••"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
                     className="w-full bg-surface-container-lowest border border-outline-variant/20 text-on-surface px-4 py-4 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary transition-all duration-300 placeholder:text-on-surface-variant/30 text-lg tracking-widest"
                   />
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center text-on-surface-variant/50 group-focus-within:text-primary transition-colors">
@@ -55,14 +95,19 @@ export default function AdminLoginPage() {
               </div>
 
               <button
-                type="button"
-                onClick={handleLogin}
+                type="submit"
+                disabled={isSubmitting}
                 className="w-full py-4 px-6 rounded-lg bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold tracking-wide flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/10"
               >
-                <span>Initialize Access</span>
+                <span>{isSubmitting ? 'Authenticating...' : 'Initialize Access'}</span>
                 <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
               </button>
-            </div>
+              {error ? (
+                <p className="text-sm text-red-400" role="alert">
+                  {error}
+                </p>
+              ) : null}
+            </form>
 
             <div className="mt-8 pt-8 border-t border-outline-variant/10 text-center">
               <a
