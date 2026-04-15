@@ -13,7 +13,21 @@
 	"upload_source_maps": true,
 	"compatibility_flags": [
 		"nodejs_compat"
-	]
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "prince_portfolio",
+			// Replace this placeholder with the real D1 database id before deploying.
+			"database_id": "wrangler-d1-create-output-id"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "R2_ASSETS",
+			"bucket_name": "prince-portfolio-assets"
+		}
+	],
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
