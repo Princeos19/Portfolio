@@ -17,3 +17,13 @@ export function assertKnownPageAndSection(pageKey: string, sectionKey: string): 
     throw new Error('Unknown section');
   }
 }
+
+export function normalizeSlug(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}

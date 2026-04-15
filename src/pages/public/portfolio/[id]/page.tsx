@@ -1,7 +1,64 @@
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Navigation } from '../../../../components/public/Navigation';
 import { Footer } from '../../../../components/public/Footer';
 import { projectDetails } from '../../../../data/projectDetails';
+import type { ProjectDetail } from '../../../../data/projectDetails';
+
+type ApiPortfolioProject = {
+  id: number;
+  slug: string;
+  title: string;
+  summary: string;
+  coverImageUrl: string | null;
+};
+
+function buildProjectDetailFromApi(remote: ApiPortfolioProject): ProjectDetail {
+  const title = remote.title.trim() || 'Untitled Project';
+  const summary = remote.summary.trim() || 'No project summary provided yet.';
+
+  return {
+    id: remote.slug || String(remote.id),
+    title,
+    subtitle: `${title}.`,
+    tags: ['Portfolio'],
+    heroImage: remote.coverImageUrl || '/src/assets/logo.png',
+    overview: summary,
+    client: 'Unknown Client',
+    role: 'Product Designer',
+    timeline: '2024',
+    service: 'Portfolio Project',
+    challenge: [summary],
+    solution: [summary],
+    solutionChecks: [],
+    galleryImages: [],
+    features: [],
+    impact: [],
+    nextProject: null,
+  };
+}
+
+function mergeProjectDetail(fallback: ProjectDetail | null, remote: ApiPortfolioProject | null): ProjectDetail | null {
+  if (!remote) {
+    return fallback;
+  }
+
+  const title = remote.title.trim();
+  const summary = remote.summary.trim();
+  const heroImage = remote.coverImageUrl?.trim();
+
+  if (!fallback) {
+    return buildProjectDetailFromApi(remote);
+  }
+
+  return {
+    ...fallback,
+    id: remote.slug || fallback.id,
+    ...(title ? { title } : {}),
+    ...(summary ? { overview: summary } : {}),
+    ...(heroImage ? { heroImage } : {}),
+  };
+}
 
 const colSpanMap: Record<number, string> = {
   4: 'md:col-span-4',
@@ -11,9 +68,85 @@ const colSpanMap: Record<number, string> = {
 
 export default function PortfolioDetailPage() {
   const { id } = useParams();
-  const project = id ? projectDetails[id] : null;
+  const [remoteProject, setRemoteProject] = useState<ApiPortfolioProject | null>(null);
+  const [loadState, setLoadState] = useState<'loading' | 'api' | 'notfound' | 'fallback'>('loading');
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoadState('loading');
+
+    async function loadProject() {
+      if (!id) {
+        if (!cancelled) {
+          setRemoteProject(null);
+          setLoadState('notfound');
+        }
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/public/portfolio/${encodeURIComponent(id)}`);
+        if (response.status === 404) {
+          if (!cancelled) {
+            setRemoteProject(null);
+            setLoadState('notfound');
+          }
+          return;
+        }
+
+        if (!response.ok) {
+          if (!cancelled) {
+            setRemoteProject(null);
+            setLoadState('notfound');
+          }
+          return;
+        }
+
+        const data = (await response.json()) as { project?: ApiPortfolioProject };
+        if (!cancelled) {
+          if (data.project) {
+            setRemoteProject(data.project);
+            setLoadState('api');
+          } else {
+            setRemoteProject(null);
+            setLoadState('notfound');
+          }
+        }
+      } catch {
+        if (!cancelled) {
+          setRemoteProject(null);
+          setLoadState('fallback');
+        }
+      }
+    }
+
+    void loadProject();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  const fallbackProject = id ? projectDetails[id] : null;
+  const project =
+    loadState === 'api'
+      ? mergeProjectDetail(fallbackProject ?? null, remoteProject)
+      : loadState === 'fallback'
+        ? fallbackProject
+        : null;
 
   if (!project) {
+    if (loadState === 'loading') {
+      return (
+        <div className="bg-background text-on-background font-body min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl font-headline font-bold mb-4">Loading project</h1>
+            <p className="text-on-surface-variant">Fetching portfolio details...</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="bg-background text-on-background font-body min-h-screen flex items-center justify-center">
         <div className="text-center">
