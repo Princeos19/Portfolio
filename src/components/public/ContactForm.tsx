@@ -1,38 +1,49 @@
+import { useState, type FormEvent } from 'react';
 import { FormInput } from './FormInput';
-import { FormSelect } from './FormSelect';
 import { FormTextarea } from './FormTextarea';
 import type { ContactFormProps } from '../../types/contact.types';
 
 export function ContactForm({ setFormStatus }: ContactFormProps) {
-  const projectTypeOptions = [
-    { value: 'UI/UX Design', label: 'UI/UX Design' },
-    { value: 'Web Development', label: 'Web Development' },
-    { value: 'Branding', label: 'Branding' },
-    { value: 'General Inquiry', label: 'General Inquiry' },
-  ];
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    
+    const data = Object.fromEntries(new FormData(form));
+    const payload = {
+      name: typeof data.name === 'string' ? data.name.trim() : '',
+      email: typeof data.email === 'string' ? data.email.trim() : '',
+      message: typeof data.message === 'string' ? data.message.trim() : '',
+    };
+
+    if (!payload.name || !payload.email || !payload.message) {
+      setFormStatus('Please complete all required fields.');
+      return;
+    }
+
     try {
-      const data = Object.fromEntries(new FormData(form));
-      
-      const res = await fetch(`https://statikform.com/api/f/${import.meta.env.VITE_STATIKFORM_ID}`, {
+      setIsSubmitting(true);
+
+      const res = await fetch('/api/public/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, email_to: import.meta.env.VITE_CONTACT_EMAIL }),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         setFormStatus('Sent!');
         form.reset();
       } else {
-        setFormStatus('Something went wrong.');
+        const response = await res.json().catch(() => null);
+        setFormStatus(
+          response && typeof response.error === 'string' ? response.error : 'Something went wrong.',
+        );
       }
     } catch (error) {
       console.error('Form submission error:', error);
       setFormStatus('Something went wrong.');
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -54,13 +65,6 @@ export function ContactForm({ setFormStatus }: ContactFormProps) {
         />
       </div>
 
-      <FormSelect
-        label="Project Type"
-        name="projectType"
-        options={projectTypeOptions}
-        required
-      />
-
       <FormTextarea
         label="Message"
         name="message"
@@ -71,9 +75,10 @@ export function ContactForm({ setFormStatus }: ContactFormProps) {
       <div className="pt-4">
         <button
           type="submit"
+          disabled={isSubmitting}
           className="group relative inline-flex items-center justify-center gap-3 bg-primary text-on-primary px-12 py-5 rounded-xl font-headline font-extrabold text-lg transition-all hover:shadow-[0_10px_40px_-10px_rgba(0,218,243,0.5)] active:scale-95 w-full md:w-auto"
         >
-          Send Message
+          {isSubmitting ? 'Sending...' : 'Send Message'}
           <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
             arrow_forward
           </span>
