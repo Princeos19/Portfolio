@@ -1,5 +1,5 @@
-import { hashToken } from '../../../../_lib/auth';
-import { jsonResponse, parseCookieHeader } from '../../../../_lib/http';
+import { hashToken } from '../../../_lib/auth';
+import { jsonResponse, parseCookieHeader } from '../../../_lib/http';
 
 const EXPIRED_COOKIE = 'admin_session=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0';
 

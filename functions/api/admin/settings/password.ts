@@ -1,6 +1,6 @@
-import { hashToken } from '../../../../_lib/auth';
-import { verifyPasswordInput } from '../../../../_lib/env';
-import { jsonResponse, parseCookieHeader, readJsonBody } from '../../../../_lib/http';
+import { hashToken } from '../../../_lib/auth';
+import { verifyPasswordInput } from '../../../_lib/env';
+import { jsonResponse, parseCookieHeader, readJsonBody } from '../../../_lib/http';
 
 type PasswordBody = {
   password?: string;

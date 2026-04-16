@@ -73,9 +73,10 @@ export default function PortfolioDetailPage() {
 
   useEffect(() => {
     let cancelled = false;
-    setLoadState('loading');
 
     async function loadProject() {
+      setLoadState('loading');
+
       if (!id) {
         if (!cancelled) {
           setRemoteProject(null);

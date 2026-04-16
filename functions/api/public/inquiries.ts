@@ -1,4 +1,4 @@
-import { jsonResponse, readJsonBody } from '../../../_lib/http';
+import { jsonResponse, readJsonBody } from '../../_lib/http';
 
 type InquiryRequestBody = {
   name?: string;

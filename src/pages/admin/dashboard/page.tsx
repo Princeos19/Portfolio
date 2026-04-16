@@ -62,29 +62,30 @@ export default function AdminDashboardPage() {
 
   useEffect(() => {
     const controller = new AbortController();
+    async function loadSummary() {
+      setIsLoading(true);
+      setError('');
 
-    setIsLoading(true);
-    setError('');
-
-    void requestAdminJson<DashboardSummary>('/api/admin/dashboard/summary', {
-      signal: controller.signal,
-    })
-      .then((response) => {
+      try {
+        const response = await requestAdminJson<DashboardSummary>('/api/admin/dashboard/summary', {
+          signal: controller.signal,
+        });
         setSummary(response);
-      })
-      .catch((caughtError: unknown) => {
+      } catch (caughtError: unknown) {
         if (caughtError instanceof DOMException && caughtError.name === 'AbortError') {
           return;
         }
 
         setSummary(null);
         setError(caughtError instanceof Error ? caughtError.message : 'Failed to load dashboard');
-      })
-      .finally(() => {
+      } finally {
         if (!controller.signal.aborted) {
           setIsLoading(false);
         }
-      });
+      }
+    }
+
+    void loadSummary();
 
     return () => {
       controller.abort();

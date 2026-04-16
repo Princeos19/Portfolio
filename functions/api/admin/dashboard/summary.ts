@@ -1,5 +1,5 @@
-import { hashToken } from '../../../../_lib/auth';
-import { jsonResponse, parseCookieHeader } from '../../../../_lib/http';
+import { hashToken } from '../../../_lib/auth';
+import { jsonResponse, parseCookieHeader } from '../../../_lib/http';
 
 async function requireAdminSession(request: Request, env: Env): Promise<Response | null> {
   const cookies = parseCookieHeader(request.headers.get('cookie'));

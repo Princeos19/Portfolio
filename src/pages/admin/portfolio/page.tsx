@@ -66,28 +66,32 @@ export default function AdminPortfolioPage() {
 
   useEffect(() => {
     const controller = new AbortController();
+    async function loadProjects() {
+      setIsLoading(true);
+      setError('');
 
-    setIsLoading(true);
-    setError('');
-
-    void requestAdminJson<{ projects: PortfolioProject[] }>('/api/admin/portfolio/projects', {
-      signal: controller.signal,
-    })
-      .then((response) => {
+      try {
+        const response = await requestAdminJson<{ projects: PortfolioProject[] }>(
+          '/api/admin/portfolio/projects',
+          {
+            signal: controller.signal,
+          },
+        );
         setProjects(response.projects);
-      })
-      .catch((caughtError: unknown) => {
+      } catch (caughtError: unknown) {
         if (caughtError instanceof DOMException && caughtError.name === 'AbortError') {
           return;
         }
 
         setError(caughtError instanceof Error ? caughtError.message : 'Failed to load projects');
-      })
-      .finally(() => {
+      } finally {
         if (!controller.signal.aborted) {
           setIsLoading(false);
         }
-      });
+      }
+    }
+
+    void loadProjects();
 
     return () => {
       controller.abort();

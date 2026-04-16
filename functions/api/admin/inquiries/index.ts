@@ -1,5 +1,5 @@
-import { hashToken } from '../../../../_lib/auth';
-import { jsonResponse, parseCookieHeader } from '../../../../_lib/http';
+import { hashToken } from '../../../_lib/auth';
+import { jsonResponse, parseCookieHeader } from '../../../_lib/http';
 
 type AdminEnv = Env;
 
