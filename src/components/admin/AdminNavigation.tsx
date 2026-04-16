@@ -13,21 +13,21 @@ const navItems = [
 
 export function AdminNavigation() {
   return (
-    <nav className="flex-1 space-y-2">
+    <nav className="flex-1 space-y-1">
       {navItems.map((item) => (
         <NavLink
           key={item.path}
           to={item.path}
           end={item.path === APP_ROUTES.ADMIN_DASHBOARD}
           className={({ isActive }: NavLinkRenderProps) =>
-            `flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-300 group relative font-body text-sm ${
+            `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
               isActive
-                ? 'text-[#00daf3] font-bold after:content-[""] after:absolute after:left-0 after:w-1 after:h-6 after:bg-[#00daf3] after:rounded-r-full active-nav-glow'
-                : 'text-[#bbc9cc] hover:text-[#e2e2e8] hover:bg-[#1e2024]/50 hover:backdrop-blur-xl'
+                ? 'border border-[#d9d2c8] bg-white text-[#111318]'
+                : 'text-[#5e584f] hover:bg-[#f4eee5] hover:text-[#111318]'
             }`
           }
         >
-          <MaterialIcon name={item.icon} />
+          <MaterialIcon name={item.icon} className="text-[18px]" />
           <span>{item.label}</span>
         </NavLink>
       ))}

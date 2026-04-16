@@ -1,9 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { AdminNavigation } from './AdminNavigation';
-import { TopAppBar } from './TopAppBar';
 import { NavLink } from 'react-router-dom';
-import { MaterialIcon } from './MaterialIcon';
 import { APP_ROUTES } from '../../utils/constants';
+import { AdminNavigation } from './AdminNavigation';
+import { MaterialIcon } from './MaterialIcon';
 
 export function AdminLayout() {
   const handleLogout = () => {
@@ -12,54 +11,54 @@ export function AdminLayout() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#111318]">
-      {/* Sidebar */}
-      <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#1e2024] flex flex-col z-50">
-        {/* Logo */}
-        <div className="p-6 pb-4">
-          <NavLink to={APP_ROUTES.ADMIN_DASHBOARD} className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-container rounded-lg flex items-center justify-center glow-cyan">
-              <MaterialIcon name="dashboard" className="text-on-primary text-xl" />
+    <div className="min-h-screen bg-[#f4eee5] text-[#111318]">
+      <aside className="fixed inset-y-0 left-0 z-20 flex w-64 flex-col border-r border-[#d9d2c8] bg-[#faf7f1]">
+        <div className="border-b border-[#e7dfd4] px-6 py-5">
+          <NavLink to={APP_ROUTES.ADMIN_DASHBOARD} className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#d9d2c8] bg-white">
+              <MaterialIcon name="dashboard" className="text-[20px] text-[#111318]" />
             </div>
-            <span className="font-black text-xl tracking-tighter text-[#00daf3]">
-              Luminary
-            </span>
+            <div>
+              <p className="text-sm font-semibold tracking-[0.16em] text-[#111318]">Senvon</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-[#6f695f]">Admin console</p>
+            </div>
           </NavLink>
         </div>
 
-        {/* Navigation */}
-        <div className="flex-1 px-3 overflow-y-auto custom-scrollbar">
+        <div className="flex-1 overflow-y-auto px-3 py-4">
           <AdminNavigation />
         </div>
 
-        {/* Footer */}
-        <div className="p-3 border-t border-[#3c494c]/15">
+        <div className="border-t border-[#e7dfd4] p-4">
           <button
             onClick={handleLogout}
-            className="w-full py-3 px-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 transition-transform shadow-lg shadow-primary/10"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#d9d2c8] bg-white px-4 py-3 text-sm font-semibold text-[#111318] transition-colors hover:bg-[#f4eee5]"
           >
-            <MaterialIcon name="logout" className="text-sm" />
-            <span className="text-sm">Logout</span>
+            <MaterialIcon name="logout" className="text-[18px]" />
+            Logout
           </button>
-          <div className="flex items-center gap-3 mt-6 px-2">
-            <img
-              className="w-10 h-10 rounded-full object-cover border border-[#3c494c]/30"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmP7OCocbMkPjUBRE9SHhiBk-o8aNh0EDKvzsZyfj6VI2uH79qNUTqNLgezD4kNOltfccxE5dXsUiOk9SygMmy-NYmXBCp4B-OrtvWnB3hHRlJv7KFHJVgWPQ2gcBdLvLNNY97uJ4aPkP4EWW15ooGK1mgONWv3PvJuYhlsOGouOMUKNigom-WjepkwLlWS_3q9uBxUIygTJd3R_yEXTDXxsSebiW5W6HBdbKNwnZwbKSs0vejfWd-iWzg97P5oo8kYDRk7Do7a-I"
-              alt="Admin profile"
-            />
-            <div>
-              <p className="text-xs font-bold text-on-surface">Admin Profile</p>
-              <p className="text-[10px] text-on-surface-variant">Lead Architect</p>
-            </div>
-          </div>
         </div>
       </aside>
 
-      {/* Top App Bar */}
-      <TopAppBar />
+      <header className="fixed inset-x-0 top-0 z-10 border-b border-[#d9d2c8] bg-[#faf7f1]/95 backdrop-blur">
+        <div className="ml-64 flex h-16 items-center justify-between px-6">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#6f695f]">
+              Minimal control surface
+            </p>
+            <p className="text-sm text-[#5e584f]">Console view for portfolio administration</p>
+          </div>
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 rounded-full border border-[#d9d2c8] bg-white px-4 py-2 text-sm font-semibold text-[#111318] transition-colors hover:bg-[#f4eee5]"
+          >
+            <MaterialIcon name="open_in_new" className="text-[18px]" />
+            View site
+          </a>
+        </div>
+      </header>
 
-      {/* Main Content Area */}
-      <main className="flex-1 ml-64 pt-16 min-h-screen flex flex-col">
+      <main className="min-h-screen pl-64 pt-16">
         <Outlet />
       </main>
     </div>

@@ -10,6 +10,10 @@ type LoginBody = {
   password?: string;
 };
 
+type SiteSettingRow = {
+  value_json: string;
+};
+
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 
 function buildSessionCookie(token: string): string {
@@ -26,7 +30,24 @@ export async function onRequestPost({ request, env }: { request: Request; env: A
     return jsonResponse({ error: 'Invalid credentials' }, { status: 401 });
   }
 
-  if (password !== env.ADMIN_PASSWORD) {
+  let expectedPassword = env.ADMIN_PASSWORD;
+
+  const setting = await env.DB.prepare('SELECT value_json FROM site_settings WHERE key = ? LIMIT 1')
+    .bind('admin_password')
+    .first<SiteSettingRow>();
+
+  if (setting) {
+    try {
+      const parsed = JSON.parse(setting.value_json) as { password?: unknown };
+      if (typeof parsed.password === 'string' && parsed.password.trim() !== '') {
+        expectedPassword = parsed.password;
+      }
+    } catch {
+      // Fall back to env.ADMIN_PASSWORD when the stored setting is invalid.
+    }
+  }
+
+  if (password !== expectedPassword) {
     return jsonResponse({ error: 'Invalid credentials' }, { status: 401 });
   }
 
