@@ -25,6 +25,7 @@
 	"r2_buckets": [
 		{
 			"binding": "R2_ASSETS",
+			// Replace with your R2 bucket name before deploying.
 			"bucket_name": "prince-portfolio-assets"
 		}
 	],
@@ -46,6 +47,7 @@
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 */
 	// "vars": {  "MY_VARIABLE": "production_value" }
+	// Required secret: ADMIN_PASSWORD (set via `wrangler secret put ADMIN_PASSWORD`)
 	/**
 	 * Static Assets
 	 * https://developers.cloudflare.com/workers/static-assets/binding/
