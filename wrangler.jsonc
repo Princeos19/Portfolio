@@ -19,7 +19,7 @@
 			"binding": "DB",
 			"database_name": "prince_portfolio",
 			// Replace this placeholder with the real D1 database id before deploying.
-			"database_id": "wrangler-d1-create-output-id"
+			"database_id": "c64c7b8a-9a11-444f-9fa2-ca4b773509ad"
 		}
 	],
 	"r2_buckets": [
